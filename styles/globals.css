@@ -194,6 +194,7 @@
     border: 1px solid black;
     border-radius: 20px;
     display: flex;
+    justify-content: space-between;
     overflow-x: scroll;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     background-color: black;
