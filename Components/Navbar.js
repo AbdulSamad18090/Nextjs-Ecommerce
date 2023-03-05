@@ -130,8 +130,14 @@ const Navbar = ({ links }) => {
               >
                 <Button
                   key={index}
+                  id='menu-btn'
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block" }}
+                  sx={{ my: 2, color: "white", display: "block",
+                  "&:hover": {
+                    backgroundColor: 'orange',
+                    color: 'black'
+                  }
+                   }}
                 >
                   {page}
                 </Button>
