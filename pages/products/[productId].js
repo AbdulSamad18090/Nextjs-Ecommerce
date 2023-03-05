@@ -1,8 +1,9 @@
 import Navbar from '@/Components/Navbar'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from '@mui/material/Button';
 import Rating from '@mui/material/Rating';
-
+import Grid from '@mui/material/Grid';
+import Link from 'next/link';
 
 
 export async function getStaticPaths() {
@@ -34,6 +35,16 @@ export async function getStaticProps(context) {
 }
 
 export default function productDescribtion({ data }) {
+  const [products, setProducts] = useState([]);
+  const getProducts = async () => {
+    const res = await fetch('https://fakestoreapi.com/products');
+    const data = await res.json();
+    setProducts(data);
+  }
+  useEffect(()=>{
+    getProducts()
+  },[])
+
   return (
     <>
       <Navbar links={['home', 'products', 'about']} />
@@ -55,6 +66,29 @@ export default function productDescribtion({ data }) {
             </div>
             <Button style={{ backgroundColor: 'black', margin: '30px 0px', width: '100%' }} variant="contained">Add to Cart</Button>
           </div>
+        </div>
+        <h1 style={{ margin: '30px 10px', paddingTop: '20px' }}>RELATED PRODUCTS</h1>
+        <div className="related-products">
+            {
+              products.map((product, index) => {
+                if(product.category == data.category){
+                  return (
+                  <Grid key={index} item xs={2} sm={4} md={4}>
+                    <Link href={`/products/${product.id}`}>
+                      <div className='card' style={{width:'300px'}}>
+                        <img className='product-image' src={product.image} alt="product-image" />
+                        <div className="about-product">
+                          <div style={{ border: '1px solid rgb(211, 211, 211)', padding: '20px 10px', marginTop: '10px', borderRadius: '10px', backgroundColor: '#fcfcfc', boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px' }}>
+                            <h4>{product.title}</h4>
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                  </Grid>
+                )
+                }
+              })
+            }
         </div>
       </div>
     </>
