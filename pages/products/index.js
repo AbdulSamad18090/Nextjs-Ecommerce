@@ -38,10 +38,12 @@ export default function products({ Data }) {
           <div style={{ textAlign: 'center' }}>
             <h1 style={{ padding: '30px 10px' }}>OUR PRODUCTS</h1>
             <TextField
+              className='search-bar'
               id="outlined-basic"
               label="Search product"
               variant="outlined"
               type={'text'}
+              size={"small"}
               onChange={(e) => { setSearchText(e.target.value) }}
             />
             <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 8, md: 12 }}>
