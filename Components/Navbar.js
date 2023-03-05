@@ -79,8 +79,8 @@ const Navbar = ({ links }) => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+              {pages.map((page, index) => (
+                <MenuItem key={index} onClick={handleCloseNavMenu}>
                   <Link
                     id="menu"
                     href={
@@ -117,7 +117,7 @@ const Navbar = ({ links }) => {
             LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
+            {pages.map((page, index) => (
               <Link
                 id="link"
                 href={
@@ -129,7 +129,7 @@ const Navbar = ({ links }) => {
                 }
               >
                 <Button
-                  key={page}
+                  key={index}
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: "white", display: "block" }}
                 >
