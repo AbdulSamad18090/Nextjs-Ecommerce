@@ -14,11 +14,11 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import Link from "next/link";
 
+
 const Navbar = ({ links }) => {
   const pages = links;
   const routs = ["", "products", "about"];
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -28,7 +28,7 @@ const Navbar = ({ links }) => {
   };
 
   return (
-    <AppBar position="sticky" style={{backgroundColor: 'black'}}>
+    <AppBar position="sticky" style={{ backgroundColor: 'black' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
@@ -87,8 +87,8 @@ const Navbar = ({ links }) => {
                       pages[0] == page
                         ? "/"
                         : pages[1] == page
-                        ? "/products"
-                        : "/about"
+                          ? "/products"
+                          : "/about"
                     }
                   >
                     <Typography textAlign="center">{page}</Typography>
@@ -124,25 +124,41 @@ const Navbar = ({ links }) => {
                   pages[0] == page
                     ? "/"
                     : pages[1] == page
-                    ? "/products"
-                    : "/about"
+                      ? "/products"
+                      : "/about"
                 }
               >
                 <Button
                   key={index}
                   id='menu-btn'
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block",
-                  "&:hover": {
-                    backgroundColor: 'orange',
-                    color: 'black'
-                  }
-                   }}
+                  sx={{
+                    my: 2, color: "white", display: "block",
+                    "&:hover": {
+                      backgroundColor: 'orange',
+                      color: 'black'
+                    }
+                  }}
                 >
                   {page}
                 </Button>
               </Link>
             ))}
+            <Link id="link" href={"/cart"}>
+              <Button
+                id='menu-btn'
+                onClick={handleCloseNavMenu}
+                sx={{
+                  my: 2, color: "white", display: "block",
+                  "&:hover": {
+                    backgroundColor: 'orange',
+                    color: 'black'
+                  }
+                }}
+              >
+                cart
+              </Button>
+            </Link>
           </Box>
         </Toolbar>
       </Container>

@@ -230,3 +230,20 @@
         width: 100%;
     }
 };
+
+
+/* Cart --------------------------------------------------------------------- */
+.cart-page{
+    padding: 30px;
+}
+.cart-items-container{
+    border: 1px solid rgb(108, 108, 108);
+    border-radius: 20px;
+    padding: 20px 20px;
+    margin-top: 30px;
+    height: fit-content;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.cart-item{
+    background-color: rebeccapurple;
+}

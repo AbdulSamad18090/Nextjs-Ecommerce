@@ -6,6 +6,12 @@ import Grid from '@mui/material/Grid';
 import Link from 'next/link';
 
 
+let Cart = [];
+const handleAddToCart = (data) => {
+  Cart.push(data);
+  alert("Successfully Added to The Cart!");
+  console.log(Cart);
+}
 export async function getStaticPaths() {
   const res = await fetch('https://fakestoreapi.com/products')
   const data = await res.json();
@@ -23,6 +29,10 @@ export async function getStaticPaths() {
   }
 }
 
+export function CartProducts() {
+  return Cart;
+}
+
 export async function getStaticProps(context) {
   const id = context.params.productId;
   const res = await fetch(`https://fakestoreapi.com/products/${id}`);
@@ -36,15 +46,17 @@ export async function getStaticProps(context) {
 
 export default function productDescribtion({ data }) {
   const [products, setProducts] = useState([]);
+  const [Cart, SetCart] = useState([]);
+
   const getProducts = async () => {
     const res = await fetch('https://fakestoreapi.com/products');
     const data = await res.json();
     setProducts(data);
   }
+
   useEffect(() => {
     getProducts()
   }, [])
-
   return (
     <>
       <Navbar links={['home', 'products', 'about']} />
@@ -64,7 +76,13 @@ export default function productDescribtion({ data }) {
                 <Rating style={{ color: 'black', marginTop: '8px', marginRight: '10px' }} name="half-rating-read" defaultValue={data.rating.rate} precision={0.1} readOnly />
               </div>
             </div>
-            <Button style={{ backgroundColor: 'black', margin: '30px 0px', width: '100%' }} variant="contained">Add to Cart</Button>
+            <Button
+              style={{ backgroundColor: 'black', margin: '30px 0px', width: '100%' }}
+              variant="contained"
+              onClick={() => { handleAddToCart(data) }}
+            >
+              Add to Cart
+            </Button>
           </div>
         </div>
         <h1 style={{ margin: '30px 10px', paddingTop: '20px' }}>RELATED PRODUCTS</h1>
