@@ -8,9 +8,18 @@ import Link from 'next/link';
 
 let Cart = [];
 const handleAddToCart = (data) => {
-  Cart.push(data);
-  alert("Successfully Added to The Cart!");
-  console.log(Cart);
+  let count = false;
+  for(let i=0; i<Cart.length; i++){
+    if (Cart[i].id == data.id) {
+      count = true;
+    }
+  }
+  if (count) {
+    alert("Product is already in shopping cart!")
+  } else {
+    Cart.push(data);
+    alert("Successfully Added to The Cart!");
+  }
 }
 export async function getStaticPaths() {
   const res = await fetch('https://fakestoreapi.com/products')
