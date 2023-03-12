@@ -1,15 +1,16 @@
-import React, { useState } from 'react'
+import React, { use, useState } from 'react'
 import Navbar from '@/Components/Navbar'
 import { CartProducts } from './products/[productId]'
 import Link from 'next/link';
-import { Button } from '@mui/material';
+import { Button, ButtonGroup } from '@mui/material';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 
 export default function cart() {
   //const products = CartProducts();
   const [products, setProducts] = useState(CartProducts());
   const [quantity, setQuantity] = useState(1);
-
+  //const [totalPrice, setTotalPrice] = useState(0);
+  let totalPrice = 0;
   const handleIncrement = () => {
     setQuantity(quantity + 1)
   }
@@ -20,9 +21,12 @@ export default function cart() {
     }
   }
 
-  const deleteCartItem = (index) => {
-    /* setProducts(products.splice(index, 1)); */
-  }
+  /* const deleteCartItem = (index) => {
+    if (index == products.length - 1) {
+      
+      
+    }
+  } */
 
   if (products.length == 0) {
     return (
@@ -56,6 +60,7 @@ export default function cart() {
         <div className="cart-items-container">
           {
             products.map((product, index) => {
+              totalPrice = totalPrice + quantity * product.rating.count;
               return (
                 <div key={index} className="cart-item">
                   <img className='cart-item-image' src={product.image} alt="img" />
@@ -78,13 +83,35 @@ export default function cart() {
                   <div className="divider"></div>
                   <div className="delete">
                     <DeleteOutlinedIcon fontSize='large' htmlColor='red' style={{ cursor: 'pointer' }}
-                      onClick={() => { deleteCartItem(index) }}
+                      onClick={() => { setProducts((products.slice(0, index)).concat(products.slice(index + 1, products.length))) }}
                     />
                   </div>
                 </div>
               )
             })
           }
+          <ButtonGroup fullWidth>
+            <Link href={`/products`} style={{ width: '100%', textDecoration: 'none' }}>
+              <Button sx={{
+                backgroundColor: 'black',
+                color: 'white',
+                marginRight: '10px',
+                "&:hover": {
+                  backgroundColor: 'orange',
+                  color: 'black'
+                }
+              }} fullWidth>continue shopping</Button>
+            </Link>
+            <Button sx={{
+              backgroundColor: 'black',
+              color: 'white',
+              marginLeft: '10px',
+              "&:hover": {
+                backgroundColor: 'orange',
+                color: 'black'
+              }
+            }} fullWidth>checkout<span style={{ color: 'red', padding: '0px 10px' }}> ${totalPrice}</span></Button>
+          </ButtonGroup>
         </div>
 
       </div>
